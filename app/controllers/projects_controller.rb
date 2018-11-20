@@ -1,12 +1,12 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy]
-  before_action :set_current_tenant, only: [:show, :edit, :update, :destroy, :new, :create]
-  before_action :verify_tenant,
+  before_action :set_tenant, only: [:show, :edit, :update, :destroy, :new, :create]
+  before_action :verify_tenant
 
   # GET /projects
   # GET /projects.json
   def index
-    @projects = Project.all
+    @projects = Project.by_plan_and_tenant(params[:tenant_id])
   end
 
   # GET /projects/1
